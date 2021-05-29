@@ -8,9 +8,10 @@
   remote_user: root
   gather_facts: true
   vars:
-    do_auth_token: "5953f9be08e6ccc2ecb9d1b8415e0bf03465befc5b4386303abb96121ea4f15b"
+    cf_email: "admin@hasahub.com"
+    cf_api_key: "l-SfNaKUsd8BBEQmzENvyuWMy66qkM990GblEP8_"
     domain: "pleasedonot.com"
-    email: "ed@hasahub.com"
+    email: "admin@hasahub.com"
 
     create_user: reaction
     copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
@@ -203,11 +204,17 @@
     - name: Create Docker network named internal
       command: docker network create internal
 
-    - name: "Set DO Auth Token in Traefik's docker-compose.yml"
+    - name: "Set Cloudflare email in Traefik's docker-compose.yml"
       replace:
         path: "{{ traefik_path}}/docker-compose.yml"
-        regexp: "YOUR_DIGITALOCEAN_AUTH_TOKEN"
-        replace: "{{ do_auth_token }}"
+        regexp: "YOUR_CLOUDFLARE_EMAIL"
+        replace: "{{ cf_email }}"
+
+    - name: "Set Cloudflare API Key in Traefik's docker-compose.yml"
+      replace:
+        path: "{{ traefik_path}}/docker-compose.yml"
+        regexp: "YOUR_CLOUDFLARE_API_KEY"
+        replace: "{{ cf_api_key }}"
 
     - name: "Set config files path in Traefik's docker-compose.yml"
       replace:
