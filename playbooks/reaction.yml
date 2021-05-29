@@ -8,9 +8,9 @@
   remote_user: root
   gather_facts: true
   vars:
-    do_auth_token: "YOUR_DIGITALOCEAN_AUTH_TOKEN"
-    domain: "YOUR_DOMAIN"
-    email: "YOUR_EMAIL"
+    do_auth_token: "5953f9be08e6ccc2ecb9d1b8415e0bf03465befc5b4386303abb96121ea4f15b"
+    domain: "pleasedonot.com"
+    email: "ed@hasahub.com"
 
     create_user: reaction
     copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
@@ -161,9 +161,9 @@
         version: trunk
 
     - git:
-        repo: "https://github.com/reactioncommerce/proxy-traefik.git"
+        repo: "https://github.com/Eduard-Hasa/proxy-test.git"
         dest: /home/{{ create_user }}/{{proxy_dir}}
-        version: trunk
+        version: main
 
     - name: Change owner of the Reaction Platform and proxy to the newly created user
       command: "chown -R {{create_user}}:{{create_user}} {{reaction_dir}} {{proxy_dir}}"
